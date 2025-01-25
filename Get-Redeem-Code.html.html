@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redeem Coins For a Google Play Redeem Code</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .spinner-container {
+            position: relative;
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid #333;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .spinner-segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: #eee;
+            transform-origin: 100% 100%;
+            text-align: center;
+            line-height: 60px;
+            font-weight: bold;
+        }
+        .spinner-segment:nth-child(1) { transform: rotate(0deg); background-color: #f5a623; }
+        .spinner-segment:nth-child(2) { transform: rotate(36deg); background-color: #ff6767; }
+        .spinner-segment:nth-child(3) { transform: rotate(72deg); background-color: #72b5a1; }
+        .spinner-segment:nth-child(4) { transform: rotate(108deg); background-color: #f1c40f; }
+        .spinner-segment:nth-child(5) { transform: rotate(144deg); background-color: #9b59b6; }
+        .spinner-segment:nth-child(6) { transform: rotate(180deg); background-color: #e67e22; }
+        .spinner-segment:nth-child(7) { transform: rotate(216deg); background-color: #3498db; }
+        .spinner-segment:nth-child(8) { transform: rotate(252deg); background-color: #1abc9c; }
+        .spinner-segment:nth-child(9) { transform: rotate(288deg); background-color: #e74c3c; }
+        .spinner-segment:nth-child(10) { transform: rotate(324deg); background-color: #2ecc71; }
+
+        .spinner-segment div {
+            transform: rotate(-180deg);
+            color: #fff;
+        }
+
+        .spin-btn {
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .spin-btn:hover {
+            background-color: #555;
+        }
+
+        .coin-display {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .redeem-container {
+            margin-top: 40px;
+        }
+
+        .redeem-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .redeem-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .redeem-code {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Redeem Coins For a Google Play Redeem Code </h1>
+    <h3>"THERE IS A TIWCE YOU CAN SPIN INFINITEVLY"</h3>
+ <a href="https://youtube.com/@radiantcartoon?si=aAYM2Ohz5WBaB8nf" target="_blank" rel="noopener noreferrer">
+   CLICK HERE TO FOLLOWUS ON YOUTUBE
+  </a>
+ <div class="spinner-container">
+        <div class="spinner-segment"><div>1 Coin</div></div>
+        <div class="spinner-segment"><div>2 Coins</div></div>
+        <div class="spinner-segment"><div>3 Coins</div></div>
+        <div class="spinner-segment"><div>4 Coins</div></div>
+        <div class="spinner-segment"><div>5 Coins</div></div>
+        <div class="spinner-segment"><div>6 Coins</div></div>
+        <div class="spinner-segment"><div>7 Coins</div></div>
+        <div class="spinner-segment"><div>10 Coins</div></div>
+        <div class="spinner-segment"><div>15 Coins</div></div>
+        <div class="spinner-segment"><div>25 Coins</div></div>
+    </div>
+
+    <button class="spin-btn" onclick="spinWheel()">Spin the Wheel!</button>
+
+    <div class="coin-display">
+        Coins: <span id="coinCount">0</span>
+    </div>
+
+    <div class="redeem-container">
+        <h3>Redeem Your Coins</h3>
+        <button class="redeem-btn" id="redeemBtn" onclick="redeemCoins()">Redeem 1500 Coins</button>
+        <div class="redeem-code" id="redeemCode"></div>
+    </div>
+</div>
+
+<script>
+    let coinCount = 0;
+
+    // Spin the wheel and calculate coins
+    function spinWheel() {
+        // Randomly choose a coin win from the 10 segments
+        const coinWins = [1, 2, 3, 4, 5, 6, 7, 10, 15, 25];
+        const randomWin = coinWins[Math.floor(Math.random() * coinWins.length)];
+
+        // Update coin count
+        coinCount += randomWin;
+        document.getElementById("coinCount").innerText = coinCount;
+
+        // Simulate wheel spinning animation (rotating)
+        let wheel = document.querySelector('.spinner-container');
+        let randomDegree = Math.floor(Math.random() * 360) + 720; // Spin multiple times
+        wheel.style.transition = "transform 3s ease-out";
+        wheel.style.transform = `rotate(${randomDegree}deg)`;
+    }
+
+    // Redeem coins for a random code
+    function redeemCoins() {
+        if (coinCount >= 1500) {
+            coinCount -= 1500;
+            document.getElementById("coinCount").innerText = coinCount;
+
+            // Generate a random alphanumeric code
+            const code = generateRandomCode(12);
+            document.getElementById("redeemCode").innerText = `Your code: ${code}`;
+        } else {
+            alert("You need at least 1500 coins to redeem.");
+        }
+    }
+
+    // Function to generate a random alphanumeric code of a given length
+    function generateRandomCode(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+</script>
+
+</body>
+</html>
